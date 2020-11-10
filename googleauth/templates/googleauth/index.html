@@ -1,0 +1,55 @@
+{% extends 'googleauth/base.html' %}
+{% load static %}
+{% block content %}
+	<div class=''>
+		{% if user.is_authenticated %}
+
+		<div class='layout__item'>
+			<a href="{% url 'list' %}"><h3>Список пользователей</h3></a>
+			<a href="{% url 'logout' %}"><h3>Выйти</h3></a>
+		</div>
+				
+		<div class='list__item'>
+			<div class='m-r-50'>
+				{% if user.profile.pic %}
+				<div class='field'><img class='avatar' src ="{{ user.profile.pic.url }}", width="200px"></b></div>
+				<a href="{% url 'edit' %}">Редактировать профиль</a>
+				
+				{% else %}
+				<div class='field'>
+					<img class='avatar' src ="{{ MEDIA_URL }}/default.png", width="150px"></b></div>
+					<a href="{% url 'edit' %}">Редактировать профиль</a>
+				{% endif %}
+			</div>
+			<div>
+				<h1 class='m-t-0'>{{user.username}}</h1>
+				{% if user.first_name %}
+					<p>{{ user.first_name }}</p>
+				{% endif %}
+				{% if user.last_name %}
+					<p>{{ user.last_name }}</p>
+				{% endif %}
+				{% if user.profile.bio %}
+					<p>{{ user.profile.bio }}</p>
+				{% endif %}
+			</div>
+		</div>
+	{% else %}
+	<div class='card'>
+		<div class='auth'>
+			<img class='icon' src="{% static 'googleauth/google.png' %}" alt="Google">
+			<a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
+				<h2>Войти c помощью Google</h2>
+			</a>
+		</div>
+		<div class='auth'>
+			<img class='icon' src="{% static 'googleauth/github.png' %}" alt="github">
+			<a class="btn btn-primary" href="{% url 'social:begin' 'github' %}">
+				<h2>Войти c помощью Github</h2>
+			</a>
+		</div>
+	</div>
+	
+	{% endif %}
+	</div>
+ {% endblock %}

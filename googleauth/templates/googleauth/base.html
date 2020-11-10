@@ -1,0 +1,18 @@
+{% load static %}
+<html>
+  <head>
+	<link rel="stylesheet" type="text/css" href="{% static 'googleauth/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block title %}
+	<title>Главная страница</title>
+	{% endblock %}
+  </head>
+  <body>
+	<div class='layout'>		  
+		{% block content %}
+		{% endblock %}		
+	</div>
+	{% block script %}
+	{% endblock %}
+  </body>
+</html>

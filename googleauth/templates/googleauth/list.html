@@ -1,0 +1,38 @@
+{% extends 'googleauth/base.html' %}
+{% load static %}
+
+{% block title %}
+	<title>Список пользователей</title>
+{% endblock %}
+
+{% block content %}
+	<div class='layout__item'>
+		<a href="{% url 'index' %}"><h3>На главную</h3></a>
+		<a href="{% url 'logout' %}"><h3>Выйти</h3></a>
+	</div>
+	<div>
+		{% if users_list %}
+			<div class='list'>
+			{% for user in users_list %}
+				<div class='list__item'>
+					<div class='m-r-50'>
+						{% if user.pic %} 
+							<img class='avatar' src ="{{ MEDIA_URL }}{{ user.pic }}" ,width="200px">
+						{% else %}
+							<img class='avatar' src ="{{ MEDIA_URL }}/default.png" , width="200px">
+						{% endif %}
+					</div>
+					<div>
+						<h1 class='m-t-0'>{{user.user.username}}</h1>
+						<p>{{ user.user.first_name }}</p>
+						<p>{{ user.user.last_name }}</p>
+						<p>{{ user.bio }}</p>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		{% else %}
+			<p>No items are available.</p>
+		{% endif %}
+	</div>	
+ {% endblock %}

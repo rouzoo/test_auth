@@ -1,0 +1,56 @@
+{% extends 'googleauth/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+	<title>Страница редактирования</title>
+{% endblock %}
+
+{% block content %}
+<div class='layout__item'>
+	<a href="{% url 'index' %}"><h3>Назад</h3></a>
+	<a href="{% url 'list' %}"><h3>Список пользователей</h3></a>
+	<a href="{% url 'logout' %}"><h3>Выйти</h3></a>
+</div>
+<div class='list__item'>
+
+	<form method="post" enctype="multipart/form-data" class="uniForm">
+		{% csrf_token %}
+	
+		{{ user_form|crispy }}
+		{{ profile_form|crispy }}
+		
+		{% if user.profile.pic %} 
+			<div id="image_uploads" class='field' ></div>
+			<img class='avatar' src ="{{ user.profile.pic.url }}" ,  width="150px">
+		{% endif %}
+	
+		<p id="previewText" style="display: none;">Загруженное изображение</p>
+		<img class='avatar' id="preview" src="http://placehold.it/180" style="display: none;" alt="new image"  />
+
+		<input type="submit" class='submit' value="Сохранить">
+	</form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$( "#id_pic" ).change(function() {
+			readURL(this)
+		});
+
+		function readURL(input) {
+			console.log('input', input)
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+					$('#preview').css("display","block")
+					$('#previewText').css("display","block")	
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+  </script> 
+{% endblock %}
