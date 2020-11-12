@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-from testauth import tokens
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'a7)2q#3)m0=$khoq2m!2=jk=&@(2u$qd9r3y2$igif@lm(=_7o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
 
 # Application definition
 
@@ -127,8 +128,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # GOOGLE OAuth2 keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = tokens.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = tokens.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 # Github keys
 SOCIAL_AUTH_GITHUB_KEY = tokens.SOCIAL_AUTH_GITHUB_KEY
 SOCIAL_AUTH_GITHUB_SECRET = tokens.SOCIAL_AUTH_GITHUB_SECRET
